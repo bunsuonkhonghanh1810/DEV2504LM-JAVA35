@@ -72,7 +72,8 @@ VALUES
 	('NN', N'Ngôn ngữ Anh'),
 	('QL', N'Quản lý công'),
 	('DL', N'Du lịch'),
-	('VL', N'Vật lý');
+	('VL', N'Vật lý'),
+	('TR', N'Triết học');
 
 INSERT INTO MON (MaMH, TenMH, Sotiet) 
 VALUES
@@ -83,7 +84,9 @@ VALUES
 	('CN', N'Mạng máy tính', 45),
 	('QG', N'Quản lý giáo dục', 35),
 	('DL', N'Địa lý du lịch', 30),
-	('NN', N'Ngữ pháp tiếng Anh', 50);
+	('NN', N'Ngữ pháp tiếng Anh', 50),
+	('TR', N'Triết học Mác - Lênin', 45),
+    ('TT', N'Tư tưởng Hồ Chí Minh', 30);
 
 INSERT INTO SINHVIEN (MaSV, HoSV, TenSV, Phai, Ngaysinh, NoiSinh, MaKH, Hocbong) 
 VALUES
@@ -109,7 +112,10 @@ VALUES
 	('20', N'Châu Thị', N'Hằng', 0, '2000-04-01', N'Đắk Lắk', 'QL', 400),
 	('21', N'Nguyễn Thị', N'Hương', 0, '2001-09-20', N'Hà Nội', 'VL', 700),
 	('22', N'Phạm Văn', N'Tài', 0, '2000-08-10', N'Hải Dương', 'VL', 500),
-	('23', N'Vũ Đức', N'Minh', 0, '2002-11-02', N'Hà Nam', 'VL', 600);
+	('23', N'Vũ Đức', N'Minh', 0, '2002-11-02', N'Hà Nam', 'VL', 600),
+	('24', N'Nguyễn Thị', N'Thảo', 0, '2001-04-15', N'Hà Nội', 'TR', 500),
+	('25', N'Lê Văn', N'Thịnh', 1, '2000-12-20', N'Bình Dương', 'TR', 300),
+	('26', N'Phạm Hoàng', N'Quân', 1, '2002-07-02', N'Đà Lạt', 'TR', 400);
 
 INSERT INTO KETQUA (MaSV, MaMH, Diem) 
 VALUES
@@ -135,7 +141,13 @@ VALUES
 	('20', 'QG', 7), ('20', 'DL', 6),
 	('21', 'C1', 8), ('21', 'CN', 7),
 	('22', 'C1', 6), ('22', 'KT', 5),
-	('23', 'CN', 9), ('23', 'C2', 8);
+	('23', 'CN', 9), ('23', 'C2', 8),
+	('24', 'TR', 8), ('24', 'TA', 7),
+	('25', 'TR', 9), ('25', 'KT', 6),
+	('26', 'QG', 7), ('26', 'TT', 8);
+
+
+-- BÀI 1 --
 
 -- 1
 SELECT MaMH N'Mã môn học', TenMH N'Tên môn học', Sotiet N'Số tiết'
@@ -152,7 +164,7 @@ FROM SINHVIEN
 ORDER BY TenSV ASC
 
 -- 4
-SELECT HoSV + ' ' + TenSV N'Họ và tên sinh viên' , CONVERT(DATE, Ngaysinh) N'Ngày sinh', Hocbong N'Học bổng'
+SELECT HoSV + ' ' + TenSV N'Họ và tên sinh viên', CONVERT(DATE, Ngaysinh) N'Ngày sinh', Hocbong N'Học bổng'
 FROM SINHVIEN
 ORDER BY Ngaysinh ASC, Hocbong DESC;
 
@@ -176,3 +188,114 @@ SELECT HoSV + ' ' + TenSV N'Họ và tên sinh viên'
 FROM SINHVIEN
 WHERE HoSV LIKE N'%Thị'
 
+-- 9
+SELECT MaSV N'Mã sinh viên', HoSV + ' ' + TenSV N'Họ và tên sinh viên', Phai N'Phái', Hocbong N'Học bổng'
+FROM SINHVIEN
+WHERE TenSV LIKE N'[a-m]%'
+
+-- 10
+SELECT HoSV + ' ' + TenSV N'Họ và tên sinh viên', CONVERT(DATE, Ngaysinh) N'Ngày sinh', NoiSinh N'Nơi sinh', Hocbong N'Học bổng'
+FROM SINHVIEN   
+WHERE TenSV LIKE N'%[a-m]%'
+ORDER BY HoSV + ' ' + TenSV ASC
+
+-- 11
+SELECT MaSV N'Mã sinh viên', HoSV + ' ' + TenSV N'Họ và tên sinh viên', CONVERT(DATE, Ngaysinh) N'Ngày sinh', MaKH N'Mã khoa'
+FROM SINHVIEN
+WHERE MaKH = 'NN'
+
+-- 12
+SELECT MaSV N'Mã sinh viên', HoSV + ' ' + TenSV N'Họ và tên sinh viên', CONVERT(DATE, Ngaysinh) N'Ngày sinh'
+FROM SINHVIEN
+WHERE MaKH = 'VL'
+ORDER BY Ngaysinh DESC
+
+-- 13
+SELECT MaSV N'Mã sinh viên', HoSV + ' ' + TenSV N'Họ và tên sinh viên', MaKH N'Mã khoa', Hocbong N'Học bổng'
+FROM SINHVIEN
+WHERE Hocbong > 500
+ORDER BY MaSV DESC
+
+-- 14
+SELECT HoSV + ' ' + TenSV N'Họ và tên sinh viên', MaKH N'Mã khoa', Hocbong N'Học bổng'
+FROM SINHVIEN
+WHERE CONVERT(DATETIME, '19871220') = Ngaysinh
+
+-- 15
+
+
+-- 16
+SELECT HoSV + ' ' + TenSV N'Họ và tên sinh viên', MaKH N'Mã khoa', NoiSinh N'Nơi sinh', Hocbong N'Học bổng'
+FROM SINHVIEN
+WHERE	Hocbong > 100
+	AND	NoiSinh = N'Hồ Chí Minh'
+
+-- 17
+SELECT MaSV N'Mã sinh viên', MaKH N'Mã khoa', Phai N'Phái'
+FROM SINHVIEN
+WHERE	MaKH = 'NN'
+	OR	MaKH = 'TR'
+
+-- 18
+
+
+-- 19
+SELECT MaSV N'Mã sinh viên', CONVERT(DATE, Ngaysinh) N'Ngày sinh', Phai N'Phái', MaKH N'Mã khoa'
+FROM SINHVIEN
+WHERE Hocbong BETWEEN 200 AND 800
+
+-- 20
+SELECT MaMH N'Mã môn học', TenMH N'Tên môn học', Sotiet N'Số tiết'
+FROM MON
+WHERE Sotiet BETWEEN 40 AND 60
+
+-- 21
+SELECT MaSV N'Mã sinh viên', HoSV + ' ' + TenSV N'Họ và tên sinh viên', Phai N'Phái'
+FROM SINHVIEN
+WHERE	Phai = 1
+	AND	MaKH = 'NN'
+
+-- 22
+
+-- 23
+SELECT HoSV + ' ' + TenSV N'Họ và tên sinh viên'
+FROM SINHVIEN
+WHERE	TenSV LIKE N'%n%'
+	AND Phai = 0
+
+-- 24
+
+-- 25
+SELECT 
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+    IIF(Phai = 1, N'Nam', N'Nữ') AS N'Giới tính',
+	CONVERT(DATE, Ngaysinh) N'Ngày sinh'
+FROM SINHVIEN;
+
+-- 26
+SELECT 
+	MaSV N'Mã sinh viên',
+	(YEAR(GETDATE()) - YEAR(Ngaysinh)) N'Tuổi',
+	NoiSinh N'Nơi sính',
+	MaKH N'Mã khoa'
+FROM SINHVIEN
+
+-- 27
+SELECT 
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	(YEAR(GETDATE()) - YEAR(Ngaysinh)) N'Tuổi',
+	Hocbong N'Học bổng'
+FROM SINHVIEN
+WHERE (YEAR(GETDATE()) - YEAR(Ngaysinh)) > 20;
+
+-- 28
+SELECT 
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	(YEAR(GETDATE()) - YEAR(Ngaysinh)) N'Tuổi',
+	TenKH N'Tên khoa'
+FROM SINHVIEN 
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+WHERE (YEAR(GETDATE()) - YEAR(Ngaysinh)) BETWEEN 20 AND 30;
+
+
+-- BÀI 2 --
