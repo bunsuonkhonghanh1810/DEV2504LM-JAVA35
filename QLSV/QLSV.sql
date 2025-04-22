@@ -299,3 +299,63 @@ WHERE (YEAR(GETDATE()) - YEAR(Ngaysinh)) BETWEEN 20 AND 30;
 
 
 -- BÀI 2 --
+
+-- 1
+SELECT 
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	IIF(Phai = 1, N'Nam', N'Nữ') AS N'Giới tính',
+	(YEAR(GETDATE()) - YEAR(Ngaysinh)) N'Tuổi',
+	MaKH N'Mã khoa'
+FROM SINHVIEN 
+ORDER BY (YEAR(GETDATE()) - YEAR(Ngaysinh)) DESC
+
+-- 2
+SELECT 
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	Phai N'Phái',
+	DAY(Ngaysinh) N'Ngày sinh'
+FROM SINHVIEN
+WHERE	MONTH(Ngaysinh) = 2
+	AND YEAR(Ngaysinh) = 1994
+
+-- 3
+SELECT 
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	Phai N'Phái',
+	DAY(Ngaysinh) N'Ngày sinh'
+FROM SINHVIEN
+WHERE	MONTH(Ngaysinh) = 2
+	AND YEAR(Ngaysinh) = 1994
+ORDER BY DAY(Ngaysinh) DESC
+
+-- 4
+SELECT 
+	MaSV N'Mã sinh viên',
+	Phai N'Phái',
+	MaKH N'Mã khoa',
+	IIF(Hocbong > 500, N'Học bổng cao', N'Mức trung bình') N'Mức học bổng'
+FROM SINHVIEN
+
+-- 5
+SELECT 
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	MaMH N'Mã môn học',
+	Diem N'Điểm'
+FROM SINHVIEN
+JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV
+ORDER BY HoSV + ' ' + TenSV ASC, MaMH ASC
+
+-- 6
+SELECT
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	IIF(Phai = 1, N'Nam', N'Nữ') N'Giới tính',
+	TenKH N'Tên khoa'
+FROM SINHVIEN
+JOIN KHOA ON SINHVIEN.MaKH =  KHOA.MaKH
+WHERE TenKH = N'Ngôn ngữ Anh'
+
+-- 7
+SELECT
+	*
+FROM (SINHVIEN JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV)
+JOIN MON ON KETQUA.MaMH = MON.MaMH
