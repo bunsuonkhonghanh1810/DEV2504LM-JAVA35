@@ -37,7 +37,7 @@ CREATE TABLE MON
 
 CREATE TABLE SINHVIEN
 (	
-	MaSV		CHAR(2),
+	MaSV		CHAR(3),
 	HoSV		NVARCHAR(30),
 	TenSV		NVARCHAR(20),
 	Phai		BIT,
@@ -53,9 +53,9 @@ CREATE TABLE SINHVIEN
 
 CREATE TABLE KETQUA
 (
-	MaSV		CHAR(2),
+	MaSV		CHAR(3),
 	MaMH		CHAR(2),
-	Diem		INT,
+	Diem		FLOAT,
 	CONSTRAINT pk_KETQUA PRIMARY KEY(MaSV, MaMH),
 	CONSTRAINT fk_KETQUA_MaSV
 				FOREIGN KEY(MaSV)
@@ -65,86 +65,72 @@ CREATE TABLE KETQUA
 				REFERENCES MON(MaMH)
 )
 
-INSERT INTO KHOA (MaKH, TenKH) 
-VALUES
-	('KH', N'Công nghệ thông tin'),
-	('KT', N'Kế toán'),
-	('NN', N'Ngôn ngữ Anh'),
-	('QL', N'Quản lý công'),
-	('DL', N'Du lịch'),
-	('VL', N'Vật lý'),
-	('TR', N'Triết học');
+INSERT [dbo].[Khoa] ([MaKH], [TenKH]) VALUES (N'AV', N'Anh Văn')
+INSERT [dbo].[Khoa] ([MaKH], [TenKH]) VALUES (N'DT', N'Điện tử')
+INSERT [dbo].[Khoa] ([MaKH], [TenKH]) VALUES (N'KT', N'Kế toán')
+INSERT [dbo].[Khoa] ([MaKH], [TenKH]) VALUES (N'TH', N'Tin học')
+INSERT [dbo].[Khoa] ([MaKH], [TenKH]) VALUES (N'TR', N'Triết')
 
-INSERT INTO MON (MaMH, TenMH, Sotiet) 
-VALUES
-	('C1', N'Cơ sở dữ liệu', 45),
-	('C2', N'Lập trình C++', 60),
-	('KT', N'Kế toán tài chính', 50),
-	('TA', N'Tiếng Anh giao tiếp', 40),
-	('CN', N'Mạng máy tính', 45),
-	('QG', N'Quản lý giáo dục', 35),
-	('DL', N'Địa lý du lịch', 30),
-	('NN', N'Ngữ pháp tiếng Anh', 50),
-	('TR', N'Triết học Mác - Lênin', 45),
-    ('TT', N'Tư tưởng Hồ Chí Minh', 30);
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'01', N'Cơ sở dữ liệu', 45)
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'02', N'Trí tuệ nhân tạo', 45)
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'03', N'Toán rời rạc ứng dụng', 45)
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'04', N'Đồ họa ứng dụng', 60)
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'05', N'Tiếng Anh cơ bản', 60)
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'06', N'Tin học văn phòng', 60)
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'07', N'Pháp luật đại cương', 30)
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'08', N'Anh chuyên Ngành', 45)
+INSERT [dbo].MON ([MaMH], [TenMH], [Sotiet]) VALUES (N'09', N'PTTK Hệ thống', 60)
 
-INSERT INTO SINHVIEN (MaSV, HoSV, TenSV, Phai, Ngaysinh, NoiSinh, MaKH, Hocbong) 
-VALUES
-	('01', N'Nguyễn Văn', N'An', 1, '2002-05-14', N'Hà Nội', 'KH', 1000),
-	('02', N'Trần Thị', N'Bình', 0, '2001-03-22', N'Hồ Chí Minh', 'KT', 500),
-	('03', N'Lê Minh', N'Chi', 1, '2002-09-01', N'Đà Nẵng', 'NN', 0),
-	('04', N'Phạm Văn', N'Dũng', 0, '2000-12-11', N'Hải Phòng', 'KH', 800),
-	('05', N'Hoàng Thị', N'Lan', 0, '2001-06-30', N'Nghệ An', 'DL', 400),
-	('06', N'Đỗ Mạnh', N'Hùng', 0, '2002-10-09', N'Nam Định', 'KH', 300),
-	('07', N'Bùi Ngọc', N'Quý', 1, '2003-01-19', N'Quảng Ninh', 'QL', 200),
-	('08', N'Vũ Thị', N'Yến', 0, '2000-07-07', N'Bắc Giang', 'KT', 600),
-	('09', N'Lý Phước', N'Hiếu', 0, '2001-11-23', N'Bình Định', 'NN', 100),
-	('10', N'Tống Anh', N'Khoa', 0, '2002-04-12', N'Thái Bình', 'KH', 700),
-	('11', N'Tô Văn', N'Hậu', 0, '2002-03-10', N'Hà Giang', 'DL', 0),
-	('12', N'Cao Thị', N'Hường', 0, '2001-08-22', N'Lạng Sơn', 'NN', 250),
-	('13', N'Lâm Chí', N'Cường', 1, '2000-09-18', N'Cần Thơ', 'KH', 900),
-	('14', N'Ngô Tấn', N'Phát', 1, '2003-06-15', N'Vĩnh Long', 'QL', 300),
-	('15', N'Trịnh Hữu', N'Khánh', 1, '2002-02-28', N'Tuyên Quang', 'KT', 350),
-	('16', N'Đinh Thị', N'Thúy', 0, '2000-10-05', N'Bình Dương', 'NN', 200),
-	('17', N'Huỳnh Mai', N'Chiêu', 0, '2001-01-07', N'Kiên Giang', 'DL', 100),
-	('18', N'Kiều Văn', N'Trung', 0, '2002-11-11', N'Kon Tum', 'KH', 800),
-	('19', N'Mai Quốc', N'Thành', 1, '2001-05-25', N'Ninh Thuận', 'KT', 150),
-	('20', N'Châu Thị', N'Hằng', 0, '2000-04-01', N'Đắk Lắk', 'QL', 400),
-	('21', N'Nguyễn Thị', N'Hương', 0, '2001-09-20', N'Hà Nội', 'VL', 700),
-	('22', N'Phạm Văn', N'Tài', 0, '2000-08-10', N'Hải Dương', 'VL', 500),
-	('23', N'Vũ Đức', N'Minh', 0, '2002-11-02', N'Hà Nam', 'VL', 600),
-	('24', N'Nguyễn Thị', N'Thảo', 0, '2001-04-15', N'Hà Nội', 'TR', 500),
-	('25', N'Lê Văn', N'Thịnh', 1, '2000-12-20', N'Bình Dương', 'TR', 300),
-	('26', N'Phạm Hoàng', N'Quân', 1, '2002-07-02', N'Đà Lạt', 'TR', 400);
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'A01', N'Nguyễn Thị', N'Vân', 0, CAST(N'1986-02-23T00:00:00' AS SmallDateTime), N'Hà Giang', N'KT', 130000)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'A02', N'Trần Văn', N'Chính', 0, CAST(N'1994-12-20T00:00:00' AS SmallDateTime), N'Bình Định', N'TH', 150000)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'A03', N'Lê Thu Bạch', N'Yến', 1, CAST(N'1993-02-21T00:00:00' AS SmallDateTime), N'Tp. HCM', N'TH', 0)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'A04', N'Trần Anh', N'Tuấn', 0, CAST(N'1987-12-20T00:00:00' AS SmallDateTime), N'Hà Nội', N'AV', 80000)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'A10', N'Trần Thị', N'Mai', 1, CAST(N'1994-10-04T00:00:00' AS SmallDateTime), N'Hà Nội', N'TH', 0)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'A11', N'Nguyễn Thành', N'Nam', 0, CAST(N'2000-01-01T00:00:00' AS SmallDateTime), N'Cà Mau', N'AV', 0)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'A12', N'Nguyễn Quang', N'Quyền', 0, CAST(N'2001-01-01T00:00:00' AS SmallDateTime), N'Đồng Nai', N'DT', 0)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'B01', N'Hoàng Thanh', N'Mai', 1, CAST(N'1992-08-12T00:00:00' AS SmallDateTime), N'Hải Phòng', N'TR', 0)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'B02', N'Trần Thị Thu', N'Thủy', 1, CAST(N'1990-01-02T00:00:00' AS SmallDateTime), N'Tp. HCM', N'AV', 80000)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'B03', N'Đố Văn', N'Lâm', 0, CAST(N'1994-02-26T00:00:00' AS SmallDateTime), N'Bình Định', N'TR', 0)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'B04', N'Bùi Kim', N'Dung', 0, CAST(N'1988-10-18T00:00:00' AS SmallDateTime), N'Hµ Néi', N'TH', 170000)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'C01', N'Hà Quang', N'Anh', 0, CAST(N'1985-03-11T00:00:00' AS SmallDateTime), N'Tp. HCM', N'TR', 0)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'C03', N'Lê Quang', N'Lưu', 0, CAST(N'1985-02-23T00:00:00' AS SmallDateTime), N'Hà Nội', N'TH', 0)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'T03', N'Hoàng Thị Hải', N'Yến', 1, CAST(N'1989-09-10T00:00:00' AS SmallDateTime), N'Hà Nội', N'AV', 170000)
+INSERT [dbo].[SinhVien] ([MaSV], [HoSV], [TenSV], [Phai], [NgaySinh], [NoiSinh], [MaKH], [HocBong]) VALUES (N'T06', N'Nguyễn Văn', N'Thắng', 0, CAST(N'1988-10-18T00:00:00' AS SmallDateTime), N'Hà Nội', N'AV', 1500000)
 
-INSERT INTO KETQUA (MaSV, MaMH, Diem) 
-VALUES
-	('01', 'C1', 8), ('01', 'C2', 9),
-	('02', 'KT', 6), ('02', 'TA', 7),
-	('03', 'NN', 9), ('03', 'TA', 6),
-	('04', 'C1', 7), ('04', 'CN', 8),
-	('05', 'DL', 6), ('05', 'TA', 7),
-	('06', 'CN', 10), ('06', 'C2', 9),
-	('07', 'QG', 7), ('07', 'TA', 6),
-	('08', 'KT', 8), ('08', 'C1', 5),
-	('09', 'TA', 5), ('09', 'NN', 6),
-	('10', 'C1', 9), ('10', 'CN', 7),
-	('11', 'DL', 8), ('11', 'QG', 7),
-	('12', 'NN', 9), ('12', 'TA', 8),
-	('13', 'C2', 10), ('13', 'CN', 9),
-	('14', 'QG', 6), ('14', 'KT', 7),
-	('15', 'KT', 8), ('15', 'TA', 6),
-	('16', 'NN', 8), ('16', 'TA', 7),
-	('17', 'DL', 6), ('17', 'TA', 6),
-	('18', 'CN', 9), ('18', 'C2', 8),
-	('19', 'KT', 7), ('19', 'TA', 5),
-	('20', 'QG', 7), ('20', 'DL', 6),
-	('21', 'C1', 8), ('21', 'CN', 7),
-	('22', 'C1', 6), ('22', 'KT', 5),
-	('23', 'CN', 9), ('23', 'C2', 8),
-	('24', 'TR', 8), ('24', 'TA', 7),
-	('25', 'TR', 9), ('25', 'KT', 6),
-	('26', 'QG', 7), ('26', 'TT', 8);
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A01', N'01', 3)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A01', N'02', 6)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A01', N'03', 5)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A01', N'04', 8)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A01', N'05', 3.9)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A02', N'01', 4.5)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A02', N'03', 7)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A02', N'05', 8)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A02', N'06', 8)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A02', N'08', 6)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A03', N'01', 2)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A03', N'03', 2.5)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A03', N'04', 9)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A04', N'02', 9)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A04', N'03', 10)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A04', N'04', 6)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A04', N'06', 8)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'A04', N'08', 9)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B01', N'01', 7)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B01', N'03', 2.5)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B01', N'04', 4)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B02', N'02', 6)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B02', N'03', 7)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B02', N'04', 10)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B02', N'06', 8)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B02', N'08', 7)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B04', N'01', 8)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B04', N'03', 7)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'B04', N'04', 9)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'C01', N'01', 3)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'C01', N'03', 2)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'C01', N'04', 7)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'C01', N'05', 5)
+INSERT [dbo].[Ketqua] ([MaSV], [MaMH], [Diem]) VALUES (N'C01', N'06', 6)
 
 
 -- BÀI 1 --
@@ -356,6 +342,288 @@ WHERE TenKH = N'Ngôn ngữ Anh'
 
 -- 7
 SELECT
-	*
-FROM (SINHVIEN JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV)
+	TenKH N'Tên khoa',
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	TenMH N'Tên môn học',
+	Sotiet N'Số tiết',
+	Diem N'Điểm'
+FROM ((SINHVIEN JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV)
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH)
 JOIN MON ON KETQUA.MaMH = MON.MaMH
+WHERE TenKH = N'Công nghệ thông tin'
+
+-- 8
+SELECT
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	MaKH N'Mã khoa',
+	TenMH N'Tên môn học',
+	Diem N'Điểm thi',
+    IIF(Diem > 8, N'Giỏi', IIF(Diem >= 6, N'Khá', N'Trung bình')) AS N'Xếp loại'
+FROM ((SINHVIEN JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV)
+JOIN MON ON KETQUA.MaMH = MON.MaMH)
+
+
+-- BÀI 3 --
+
+-- 1
+SELECT
+	KETQUA.MaMH N'Mã môn',
+	TenMH N'Tên môn',
+	AVG(Diem) N'Trung bình điểm thi'
+FROM KETQUA 
+JOIN MON ON KETQUA.MaMH = MON.MaMH
+GROUP BY KETQUA.MaMH, TenMH
+
+-- 2
+SELECT
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	TenKH N'Tên khoa',
+	COUNT(MaMH) N'Số môn thi'
+FROM (SINHVIEN JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV)
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+GROUP BY HoSV + ' ' + TenSV, TenKH
+
+-- 3
+SELECT
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	TenKH N'Tên khoa',
+	Phai N'Phái',
+	SUM(Diem) N'Tổng điểm thi'
+FROM (SINHVIEN JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV)
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+GROUP BY HoSV + ' ' + TenSV, TenKH, Phai
+
+-- 4
+SELECT
+	TenKH N'Tên khoa',
+	COUNT(MaSV) N'Tổng số sinh viên'
+FROM SINHVIEN
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+GROUP BY TenKH
+
+-- 5
+SELECT
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	MAX(Diem) N'Điểm'
+FROM SINHVIEN 
+JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV
+GROUP BY HoSV + ' ' + TenSV
+
+
+-- BÀI 4 --
+
+-- 1
+DECLARE @KhoaCanTim VARCHAR(2) = 'AV'
+
+SELECT
+	MaSV N'Mã sinh viên',
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	IIF(Phai = 0, N'Nam', N'Nữ') N'Giới tính',
+	TenKH N'Tên khoa'
+FROM SINHVIEN
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+WHERE SINHVIEN.MaKH = @KhoaCanTim
+
+-- 2
+DECLARE @DiemNhapVao FLOAT = 4
+
+SELECT
+	SINHVIEN.MaSV N'Mã sinh viên',
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	TenMH N'Tên môn',
+	Diem N'Điểm'
+FROM SINHVIEN
+JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV
+JOIN MON ON KETQUA.MaMH = MON.MaMH
+WHERE MON.TenMH = N'Cơ sở dữ liệu'
+	AND Diem > @DiemNhapVao
+
+-- 3
+DECLARE @MonCanXem NVARCHAR(30) = N'Toán rời rạc ứng dụng'
+
+SELECT
+	SINHVIEN.MaSV N'Mã sinh viên',
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	TenMH N'Tên môn',
+	Diem N'Điểm'
+FROM SINHVIEN
+JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV
+JOIN MON ON KETQUA.MaMH = MON.MaMH
+WHERE MON.TenMH = @MonCanXem
+
+
+-- BÀI 5 --
+
+-- 1
+SELECT 
+	TTSV.MaSV N'Mã sinh viên',
+	TTSV.MaKH N'Mã khoa',
+	TTSV.Phai N'Phái'
+FROM
+(	
+	SELECT
+		SINHVIEN.MaSV,
+		MaKH,
+		Phai,
+		COUNT(Diem) SoLanThi
+	FROM SINHVIEN
+	LEFT JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV
+	GROUP BY SINHVIEN.MaSV, MaKH, Phai
+) TTSV
+WHERE TTSV.SoLanThi = 0
+
+-- 2
+SELECT
+	MaSV N'Mã sinh viên',
+	HoSV + ' ' + TenSV AS N'Họ và tên sinh viên',
+	MaKH N'Mã khoa'
+FROM SINHVIEN
+WHERE MaSV NOT IN
+(
+	SELECT
+		SINHVIEN.MaSV
+	FROM (SINHVIEN JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV)
+		JOIN MON ON KETQUA.MaMH = MON.MaMH
+	WHERE TenMH = N'Cơ sở dữ liệu'
+)
+
+-- 3
+SELECT
+	MaMH N'Mã môn',
+	TenMH N'Tên môn',
+	Sotiet N'Số tiết'
+FROM MON
+WHERE MaMH NOT IN (SELECT MaMH FROM KETQUA)
+
+-- 4
+SELECT * FROM KHOA
+WHERE MaKH NOT IN (SELECT MaKH FROM SINHVIEN)
+
+-- 5
+SELECT
+	*
+FROM SINHVIEN 
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+WHERE	TenKH = N'Anh văn'
+	AND MaSV NOT IN 
+	(
+		SELECT
+			MaSV
+		FROM KETQUA 
+		JOIN MON ON KETQUA.MaMH = MON.MaMH
+		WHERE TenMH = N'Cơ sở dữ liệu'
+	)
+
+-- 6
+
+-- 7
+SELECT
+	*
+FROM SINHVIEN 
+JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV
+JOIN MON ON KETQUA.MaMH = MON.MaMH
+WHERE	Diem <	(
+					SELECT TOP 1
+						Diem
+					FROM SINHVIEN 
+					JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV
+					JOIN MON ON KETQUA.MaMH = MON.MaMH
+					JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+					WHERE	TenKH = N'Tin học'
+						AND TenMH = N'Đồ họa ứng dụng'
+					ORDER BY Diem ASC
+				)
+	AND	TenMH = N'Đồ họa ứng dụng'
+
+-- 8
+SELECT
+	*
+FROM SINHVIEN
+WHERE	Ngaysinh >	(
+						SELECT TOP 1
+							Ngaysinh
+						FROM SINHVIEN
+						JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+						WHERE TenKH = N'Anh văn'
+						ORDER BY Ngaysinh DESC
+					)
+					
+-- 9
+SELECT
+	SUM(Hocbong)
+FROM SINHVIEN
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+WHERE TenKH = N'Triết'
+
+-- 10
+
+-- 11
+SELECT 
+	SINHVIEN.MaSV N'Mã sinh viên',
+	HoSV + ' ' + TenSV N'Họ và tên sinh viên',
+	TenMH N'Tên môn',
+	KETQUA.Diem N'Điểm'
+FROM KETQUA
+JOIN
+(
+	SELECT
+		MaMH,
+		MAX(Diem) Diem
+	FROM KETQUA
+	GROUP BY MaMH
+)CAONHAT ON KETQUA.MaMH = CAONHAT.MaMH
+		AND KETQUA.Diem = CAONHAT.Diem
+JOIN SINHVIEN ON KETQUA.MaSV = SINHVIEN.MaSV
+JOIN MON ON KETQUA.MaMH = MON.MaMH
+
+-- 12
+SELECT
+	SINHVIEN.MaSV N'Mã sinh viên',
+	TenKH N'Tên khoa',
+	Hocbong N'Học bổng'
+FROM SINHVIEN
+JOIN
+(
+	SELECT
+		MaKH,
+		MAX(Hocbong) HB
+	FROM SINHVIEN
+	GROUP BY MaKH
+)HBCAONHAT ON SINHVIEN.MaKH = HBCAONHAT.MaKH
+			AND SINHVIEN.Hocbong = HBCAONHAT.HB
+JOIN KHOA ON SINHVIEN.MaKH = KHOA.MaKH
+
+
+-- BÀI 6 --
+
+-- 1
+INSERT INTO SINHVIEN
+VALUES
+	('C01', N'Lê Thành', N'Nguyên', 0, CONVERT(DATETIME, '19801020'), N'Tp. HCM', 'TH', 850000)
+
+-- 2
+INSERT INTO MON
+VALUES
+	('06', N'Xử lý ảnh', 45)
+
+-- 3
+INSERT INTO KHOA
+VALUES
+	('CT', N'Công trình')
+ 
+-- 4
+INSERT INTO SINHVIEN
+VALUES
+	('C02', N'Nguyễn Trần', N'Quân', 0, GETDATE(), N'Huế', 'CT', 950000)
+
+-- 5
+SELECT sv.MaSV
+FROM SINHVIEN sv
+JOIN KHOA k ON sv.MaKH = k.MaKH
+WHERE k.TenKH = N'Tin học';
+
+SELECT
+	*
+FROM SINHVIEN
+JOIN KETQUA ON SINHVIEN.MaSV = KETQUA.MaSV
+JOIN
